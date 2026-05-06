@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #333;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            color: white;
+            padding: 20px 40px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 25px;
+            font-size: 14px;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 16px;
+            text-align: left;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .insert {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        .update {
+            color: #d97706;
+            font-weight: 600;
+        }
+
+        .delete {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .sin-datos {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+        .col-id {
+            width: 80px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .col-desc {
+            min-width: 320px;
+            line-height: 1.5;
+        }
+
+        .col-monto {
+            font-weight: 600;
+            color: #111827;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <h1>Control de Gastos</h1>
+
+    <div class="nav-links">
+        <a href="/dashboard-view">Dashboard</a>
+        <a href="/registrar-gasto">Registrar</a>
+        <a href="/gastos-view">Gastos</a>
+        <a href="/historial">Historial</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Historial de Movimientos</h2>
+
+        {% if historial %}
+
+        <table>
+            <tr>
+                <th class="col-id">ID</th>
+                <th class="col-id">Gasto</th>
+                <th>Acción</th>
+                <th class="col-desc">Descripción</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Usuario</th>            
+            </tr>
+
+            {% for item in historial %}
+            <tr>
+                <td class="col-id">{{ item.id_historial }}</td>
+                <td class="col-id">{{ item.id_gasto }}</td>
+
+                <td>
+                    <span class="{{ item.accion|lower }}">
+                        {{ item.accion }}
+                    </span>
+                </td>
+                <td class="col-desc">{{ item.descripcion_cambio or '-' }}</td>
+                <td class="col-monto">${{ item.monto }}</td>
+                <td>{{ item.fecha }}</td>
+                <td>{{ item.usuario_accion }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        {% else %}
+            <div class="sin-datos">
+                No hay movimientos registrados.
+            </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

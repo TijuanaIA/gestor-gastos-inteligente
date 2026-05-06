@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gastos Activos</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #333;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            color: white;
+            padding: 20px 40px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 25px;
+            font-size: 14px;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 16px;
+            text-align: left;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .col-id {
+            width: 80px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .col-monto {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .col-notas {
+            min-width: 280px;
+            line-height: 1.5;
+        }
+
+        .btn-editar,
+        .btn-eliminar {
+            background: transparent;
+            color: #6b7280;
+            padding: 8px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn-editar:hover {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border-color: #93c5fd;
+        }
+
+        .btn-eliminar:hover {
+            background: #fef2f2;
+            color: #dc2626;
+            border-color: #fca5a5;
+        }
+
+        .sin-datos {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(17, 24, 39, 0.45);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            width: 400px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            color: #dc2626;
+        }
+
+        .modal-content p {
+            color: #4b5563;
+            margin: 15px 0 25px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-cancelar,
+        .btn-confirmar {
+            padding: 10px 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-cancelar {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .btn-confirmar {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-cancelar:hover {
+            background: #e5e7eb;
+        }
+
+        .btn-confirmar:hover {
+            background: #b91c1c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <h1>Control de Gastos</h1>
+
+    <div class="nav-links">
+        <a href="/dashboard-view">Dashboard</a>
+        <a href="/registrar-gasto">Registrar</a>
+        <a href="/gastos-view">Gastos</a>
+        <a href="/historial">Historial</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Gastos Activos</h2>
+
+        {% if gastos %}
+
+        <table>
+            <tr>
+                <th class="col-id">ID</th>
+                <th>Categoría</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th class="col-notas">Notas</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+
+            {% for gasto in gastos %}
+            <tr>
+                <td class="col-id">{{ gasto.id_gasto }}</td>
+                <td>{{ gasto.nombre_categoria }}</td>
+                <td class="col-monto">${{ gasto.monto }}</td>
+                <td>{{ gasto.fecha }}</td>
+                <td class="col-notas">{{ gasto.notas or '-' }}</td>
+
+                <td>
+                    <a class="btn-editar"
+                       href="/editar-gasto/{{ gasto.id_gasto }}">
+                       Editar
+                    </a>
+                </td>
+
+                <td>
+                    <a class="btn-eliminar"
+                    href="#"
+                    onclick="abrirModal('{{ gasto.id_gasto }}')">
+                    Eliminar
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        {% else %}
+            <div class="sin-datos">
+                No hay gastos activos registrados.
+            </div>
+        {% endif %}
+
+    </div>
+
+</div>
+<div id="modalEliminar" class="modal">
+    <div class="modal-content">
+        <h3>Eliminar gasto</h3>
+        <p>¿Seguro que deseas eliminar este registro?</p>
+
+        <div class="modal-buttons">
+            <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+            <a id="confirmarEliminar" class="btn-confirmar">Eliminar</a>
+        </div>
+    </div>
+</div>
+<script>
+function abrirModal(id) {
+    document.getElementById('modalEliminar').style.display = 'flex';
+    document.getElementById('confirmarEliminar').href = '/eliminar-gasto/' + id;
+}
+
+function cerrarModal() {
+    document.getElementById('modalEliminar').style.display = 'none';
+}
+</script>
+</body>
+</html>

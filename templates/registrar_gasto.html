@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Gasto</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #333;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            color: white;
+            padding: 20px 40px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #1d4ed8;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .mensaje {
+            margin-top: 20px;
+            padding: 15px;
+            background: #dcfce7;
+            border-radius: 10px;
+            color: #166534;
+        }
+
+        .alertas {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fef3c7;
+            border-radius: 10px;
+        }
+
+        .alertas li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <h1>Control de Gastos</h1>
+
+    <div class="nav-links">
+        <a href="/dashboard-view">Dashboard</a>
+        <a href="/registrar-gasto">Registrar</a>
+        <a href="/gastos-view">Gastos</a>
+        <a href="/historial">Historial</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <h2>Registrar Nuevo Gasto</h2>
+
+    <form method="POST">
+
+        <label>Monto</label>
+        <input type="number" step="0.01" name="monto" required>
+
+        <label>Categoría</label>
+        <select name="categoria" required>
+            <option value="">Selecciona una categoría</option>
+
+            {% for categoria in categorias %}
+                <option value="{{ categoria.id_categoria }}">
+                    {{ categoria.nombre_categoria }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Fecha</label>
+        <input type="datetime-local" name="fecha" required>
+
+        <label>Notas</label>
+        <textarea name="notas"></textarea>
+
+        <button type="submit">Guardar Gasto</button>
+
+    </form>
+
+    {% if mensaje %}
+        <div class="mensaje">
+            {{ mensaje }}
+        </div>
+    {% endif %}
+
+    {% if alertas %}
+        <div class="alertas">
+            <strong>Alertas generadas:</strong>
+            <ul>
+                {% for alerta in alertas %}
+                    <li>{{ alerta }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
