@@ -278,11 +278,11 @@ http://127.0.0.1:5000
 
 ### Dashboard
 
-![Dashboard 1](screenshots/dashboard(1).png)
+![Dashboard 1](screenshots/dashboard_1.png)
 
-![Dashboard 2](screenshots/dashboard(2).png)
+![Dashboard 2](screenshots/dashboard_2.png)
 
-![Dashboard 3](screenshots/dashboard(3).png)
+![Dashboard 3](screenshots/dashboard_3.png)
 
 ### Registro de gastos
 
