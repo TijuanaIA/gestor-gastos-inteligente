@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `gastos_personales`;
-USE `gastos_personales`;
+-- CREATE DATABASE IF NOT EXISTS `gastos_personales`;
+-- USE `gastos_personales`;
 
 -- Tabla de usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
