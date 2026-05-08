@@ -154,7 +154,7 @@
 
         <div class="card">
             <h3>Total Gastado</h3>
-            <p>${{ total_gastado }}</p>
+            <p>${{ "%.2f"|format(total_gastado or 0) }}</p>
         </div>
 
         <div class="card">
@@ -164,7 +164,7 @@
 
         <div class="card">
             <h3>Promedio</h3>
-            <p>${{ promedio_gasto }}</p>
+            <p>${{ "%.2f"|format(promedio or 0) }}</p>
         </div>
 
         <div class="card">

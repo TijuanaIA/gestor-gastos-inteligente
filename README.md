@@ -6,6 +6,10 @@ Sistema web de gestión financiera personal desarrollado con Flask y MySQL, enfo
 
 Gestor de Gastos Inteligente permite registrar movimientos financieros, visualizar métricas clave y generar alertas automáticas en función de presupuesto y comportamiento histórico.
 
+## Demo en vivo
+
+🔗 https://gestor-gastos-inteligente.onrender.com/dashboard-view
+
 ## Objetivo del proyecto
 
 Este proyecto fue desarrollado como parte de mi transición profesional hacia desarrollo backend con Python y análisis de datos, con énfasis en diseño de lógica de negocio, modelado relacional y trazabilidad de información financiera.
