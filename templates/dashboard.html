@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control de Gastos</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -121,6 +122,144 @@
             border-radius: 10px;
             margin-bottom: 12px;
         }
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .container {
+                padding: 15px;
+            }
+        }
+
+        /* Móvil */
+        @media (max-width: 768px) {
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .nav-links a {
+                margin-left: 0;
+            }
+
+            .container {
+                margin: 20px auto;
+                padding: 12px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            .card p {
+                font-size: 22px;
+            }
+
+            .section {
+                padding: 18px;
+            }
+
+            canvas {
+                max-width: 100%;
+            }
+
+            .filtro form {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            select {
+                width: 100%;
+            }
+        }
+
+        /* Pantallas muy pequeñas */
+        @media (max-width: 480px) {
+
+            .navbar h1 {
+                font-size: 18px;
+            }
+
+            .card p {
+                font-size: 20px;
+            }
+
+            .section h2 {
+                font-size: 18px;
+            }
+
+            li {
+                font-size: 14px;
+            }
+        }
+        .mobile-nav {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+
+            .navbar {
+                display: none;
+            }
+
+            body {
+                padding-bottom: 80px;
+            }
+
+            .mobile-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: white;
+                border-top: 1px solid #e5e7eb;
+                box-shadow: 0 -4px 14px rgba(0,0,0,0.08);
+                justify-content: space-around;
+                align-items: center;
+                padding: 10px 0;
+                z-index: 1000;
+            }
+
+            .mobile-nav a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-decoration: none;
+                color: #6b7280;
+                font-size: 22px;
+                font-weight: bold;
+            }
+
+            .mobile-nav a span {
+                font-size: 11px;
+                margin-top: 4px;
+            }
+
+            .mobile-nav a:hover {
+                color: #2563eb;
+            }
+            .mobile-nav a.active {
+            color: #2563eb;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -154,7 +293,7 @@
 
         <div class="card">
             <h3>Total Gastado</h3>
-            <p>${{ "%.2f"|format(total_gastado or 0) }}</p>
+            <p>${{ "%.2f"|format(total_gastado or 0.00) }}</p>
         </div>
 
         <div class="card">
@@ -164,7 +303,7 @@
 
         <div class="card">
             <h3>Promedio</h3>
-            <p>${{ promedio_gasto }}</p>
+            <p>${{ "{:,.2f}".format(promedio_gasto or 0.00) }}</p>          
         </div>
 
         <div class="card">
@@ -211,6 +350,14 @@
 
 </div>
 
+<div class="mobile-nav">
+    <a href="/dashboard-view" class="active">📊<span>Inicio</span></a>
+    <a href="/registrar-gasto">➕<span>Registrar</span></a>
+    <a href="/gastos-view">💳<span>Gastos</span></a>
+    <a href="/historial">🕒<span>Historial</span></a>
+</div>
+
+
 <script>
     const categorias = [
         {% for item in categorias_grafica %}
@@ -241,6 +388,9 @@
                     '#06b6d4'
                 ]
             }]
+        },
+        options: {
+            responsive: true
         }
     });
 </script>

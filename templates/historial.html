@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial</title>
 
     <style>
@@ -115,6 +116,147 @@
             font-weight: 600;
             color: #111827;
         }
+        /* Scroll tabla */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+
+            .container {
+                width: calc(100% - 40px);
+                margin: 35px auto;
+                padding: 0;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            table {
+                min-width: 1000px;
+            }
+        }
+
+        /* Móvil */
+        @media (max-width: 768px) {
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .nav-links a {
+                margin-left: 0;
+            }
+
+            .container {
+                width: calc(100% - 30px);
+                margin: 20px auto;
+                padding: 0;
+            }
+
+            .card {
+                padding: 18px;
+                border-radius: 12px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            table {
+                min-width: 950px;
+                font-size: 13px;
+            }
+
+            th,
+            td {
+                padding: 12px;
+            }
+        }
+
+        /* Pantallas pequeñas */
+        @media (max-width: 480px) {
+
+            .navbar h1 {
+                font-size: 18px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            table {
+                min-width: 900px;
+            }
+        }
+
+        .mobile-nav {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+
+            .navbar {
+                display: none;
+            }
+
+            body {
+                padding-bottom: 80px;
+            }
+
+            .mobile-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: white;
+                border-top: 1px solid #e5e7eb;
+                box-shadow: 0 -4px 14px rgba(0,0,0,0.08);
+                justify-content: space-around;
+                align-items: center;
+                padding: 10px 0;
+                z-index: 1000;
+            }
+
+            .mobile-nav a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-decoration: none;
+                color: #6b7280;
+                font-size: 22px;
+                font-weight: bold;
+            }
+
+            .mobile-nav a span {
+                font-size: 11px;
+                margin-top: 4px;
+            }
+
+            .mobile-nav a:hover {
+                color: #2563eb;
+            }
+            .mobile-nav a.active {
+                color: #2563eb;
+            }
+        }
     </style>
 </head>
 <body>
@@ -130,6 +272,13 @@
     </div>
 </div>
 
+<div class="mobile-nav">
+    <a href="/dashboard-view">📊<span>Inicio</span></a>
+    <a href="/registrar-gasto">➕<span>Registrar</span></a>
+    <a href="/gastos-view">💳<span>Gastos</span></a>
+    <a href="/historial" class="active">🕒<span>Historial</span></a>
+</div>
+
 <div class="container">
 
     <div class="card">
@@ -137,7 +286,7 @@
         <h2>Historial de Movimientos</h2>
 
         {% if historial %}
-
+        <div class="table-wrapper">
         <table>
             <tr>
                 <th class="col-id">ID</th>
@@ -166,6 +315,7 @@
             </tr>
             {% endfor %}
         </table>
+        </div>
 
         {% else %}
             <div class="sin-datos">

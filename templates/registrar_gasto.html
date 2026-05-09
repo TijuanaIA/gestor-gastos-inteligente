@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Gasto</title>
 
     <style>
@@ -36,11 +37,13 @@
 
         .container {
             max-width: 700px;
+            width: 100%;
             margin: 50px auto;
             background: white;
             padding: 35px;
             border-radius: 16px;
             box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+            box-sizing: border-box;
         }
 
         h2 {
@@ -104,6 +107,146 @@
         .alertas li {
             margin-bottom: 10px;
         }
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .container {
+                width: calc(100% - 40px);
+                margin: 35px auto;
+                padding: 28px;
+            }
+        }
+
+        /* Móvil */
+        @media (max-width: 768px) {
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .nav-links a {
+                margin-left: 0;
+            }
+
+            .container {
+                margin: 20px auto;
+                width: calc(100% - 30px);
+                padding: 22px;
+                border-radius: 12px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            input,
+            select,
+            textarea,
+            button {
+                font-size: 16px;
+            }
+
+            button {
+                padding: 15px;
+            }
+
+            .mensaje,
+            .alertas {
+                padding: 14px;
+            }
+        }
+
+        /* Pantallas pequeñas */
+        @media (max-width: 480px) {
+
+            .navbar h1 {
+                font-size: 18px;
+            }
+
+            .container {
+                margin: 15px auto;
+                width: calc(100% - 20px);
+                padding: 18px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            label {
+                font-size: 14px;
+            }
+
+            input,
+            select,
+            textarea {
+                padding: 11px;
+            }
+
+            button {
+                font-size: 15px;
+            }
+        }
+        /* Estilos para la navegación móvil */
+
+        .mobile-nav {
+            display: none;
+        }
+        @media (max-width: 768px) {
+
+            .navbar {
+                display: none;
+            }
+
+            body {
+                padding-bottom: 80px;
+            }
+
+            .mobile-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: white;
+                border-top: 1px solid #e5e7eb;
+                box-shadow: 0 -4px 14px rgba(0,0,0,0.08);
+                justify-content: space-around;
+                align-items: center;
+                padding: 10px 0;
+                z-index: 1000;
+            }
+
+            .mobile-nav a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-decoration: none;
+                color: #6b7280;
+                font-size: 22px;
+                font-weight: bold;
+            }
+
+            .mobile-nav a span {
+                font-size: 11px;
+                margin-top: 4px;
+            }
+
+            .mobile-nav a:hover {
+                color: #2563eb;
+            }
+            .mobile-nav a.active {
+                color: #2563eb;
+            }
+        }
     </style>
 </head>
 <body>
@@ -117,6 +260,13 @@
         <a href="/gastos-view">Gastos</a>
         <a href="/historial">Historial</a>
     </div>
+</div>
+
+<div class="mobile-nav">
+    <a href="/dashboard-view">📊<span>Inicio</span></a>
+    <a href="/registrar-gasto" class="active">➕<span>Registrar</span></a>
+    <a href="/gastos-view">💳<span>Gastos</span></a>
+    <a href="/historial">🕒<span>Historial</span></a>
 </div>
 
 <div class="container">

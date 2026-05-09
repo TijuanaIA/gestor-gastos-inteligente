@@ -445,13 +445,11 @@ def dashboard_view():
         """, (1,))
         cantidad = cursor.fetchone()
 
-        cursor.execute(f"""
-            SELECT AVG(monto) AS promedio
+        cursor.execute(f""" 
+            SELECT AVG(monto) AS promedio 
             FROM gastos
-            WHERE id_usuario = %s
-            AND activo = TRUE
-            {condicion_fecha}
-        """, (1,))
+            WHERE id_usuario = %s AND activo = TRUE {condicion_fecha}
+        """, (1,)) 
         promedio = cursor.fetchone()
 
         cursor.execute("""
@@ -508,7 +506,7 @@ def dashboard_view():
             'dashboard.html',
             total_gastado=total["total_gastado"] or 0,
             total_gastos=cantidad["total_gastos"],
-            promedio_gasto=promedio["promedio"] or 0,
+            promedio_gasto=promedio["promedio"] or 0,            
             total_alertas=alertas["total_alertas"],
             categoria_top=categoria_top,
             alertas_recientes=alertas_recientes,
