@@ -61,6 +61,17 @@ El sistema está diseñado con enfoque en:
 
 ---
 
+---
+
+## Mejoras recientes (v1.1)
+
+- Diseño responsive para móviles
+- Navegación inferior fija en dispositivos móviles
+- Tablas adaptadas con desplazamiento horizontal
+- Mejoras de usabilidad en formularios
+
+---
+
 ## Rutas principales del sistema
 
 Las rutas están implementadas en `routes/gastos.py` y gestionan tanto la interacción con las vistas HTML como la lógica de negocio del sistema.
