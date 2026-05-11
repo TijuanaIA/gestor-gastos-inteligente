@@ -262,16 +262,26 @@
 
             .modal-content {
                 width: calc(100% - 30px);
+                max-width: 360px;
                 padding: 22px;
+                box-sizing: border-box;
             }
 
             .modal-buttons {
+                display: flex;
                 flex-direction: column;
+                gap: 12px;
+                margin-top: 18px;
             }
 
             .btn-cancelar,
             .btn-confirmar {
                 width: 100%;
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 14px;
             }
         }
 
