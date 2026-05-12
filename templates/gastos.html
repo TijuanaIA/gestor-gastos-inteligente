@@ -196,6 +196,55 @@
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
+        .filtros {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 20px 0 25px;
+            align-items: center;
+        }
+
+        .filtros select,
+        .filtros input {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .btn-filtrar,
+        .btn-limpiar {
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            min-height: 40px;
+        }
+
+        .btn-filtrar {
+            background: #2563eb;
+            color: white;
+            border: none;
+        }
+
+        .btn-limpiar {
+            background: #e5e7eb;
+            color: #374151;
+            border: 1px solid #9ca3af;
+        }
+        .resultado-filtros {
+            color: #6b7280;
+            margin-bottom: 18px;
+        }
+        .btn-limpiar:hover {
+            background: #d1d5db;
+        }
 
         /* Tablet */
         @media (max-width: 1024px) {
@@ -282,6 +331,34 @@
                 align-items: center;
                 justify-content: center;
                 padding: 14px;
+            }
+            .filtros {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filtros select,
+            .filtros input,
+            .btn-filtrar,
+            .btn-limpiar {
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .resultado-filtros {
+                text-align: center;
+                width: 100%;
+            }
+
+            .filtros {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-limpiar,
+            .btn-filtrar {
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
             }
         }
 
@@ -378,6 +455,32 @@
     <a href="/historial">🕒<span>Historial</span></a>
 </div>
 
+<form method="GET" class="filtros">
+
+    <select name="categoria">
+        <option value="">Todas las categorías</option>
+        {% for cat in categorias %}
+            <option value="{{ cat.id_categoria }}"
+                {% if categoria_seleccionada == cat.id_categoria|string %}selected{% endif %}>
+                {{ cat.nombre_categoria }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <input type="date" name="fecha_inicio" value="{{ fecha_inicio or '' }}">
+
+    <input type="date" name="fecha_fin" value="{{ fecha_fin or '' }}">
+
+    <button type="submit" class="btn-filtrar">Filtrar</button>
+
+    <a href="/gastos-view" class="btn-limpiar">Limpiar</a>
+
+</form>
+
+<p class="resultado-filtros">
+    Mostrando {{ gastos|length }} resultado(s)
+</p>
+
 <div class="container">
 
     <div class="card">
@@ -426,7 +529,11 @@
 
         {% else %}
             <div class="sin-datos">
-                No hay gastos activos registrados.
+                {% if total_general > 0 %}
+                    No se encontraron registros con los filtros seleccionados.
+                {% else %}
+                    No hay gastos activos registrados.
+                {% endif %}
             </div>
         {% endif %}
 

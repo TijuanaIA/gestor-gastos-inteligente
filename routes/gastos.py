@@ -761,7 +761,11 @@ def ver_gastos():
         conexion = get_connection()
         cursor = conexion.cursor(dictionary=True)
 
-        cursor.execute("""
+        categoria = request.args.get('categoria')
+        fecha_inicio = request.args.get('fecha_inicio')
+        fecha_fin = request.args.get('fecha_fin')
+
+        query = """
             SELECT
                 g.id_gasto,
                 c.nombre_categoria,
@@ -773,14 +777,54 @@ def ver_gastos():
                 ON g.id_categoria = c.id_categoria
             WHERE g.id_usuario = %s
             AND g.activo = TRUE
-            ORDER BY g.fecha DESC
+        """
+
+        parametros = [1]
+
+        if categoria:
+            query += " AND g.id_categoria = %s"
+            parametros.append(categoria)
+
+        if fecha_inicio:
+            query += " AND DATE(g.fecha) >= %s"
+            parametros.append(fecha_inicio)
+
+        if fecha_fin:
+            query += " AND DATE(g.fecha) <= %s"
+            parametros.append(fecha_fin)
+
+        query += " ORDER BY g.fecha DESC"
+
+        cursor.execute(query, tuple(parametros))
+        gastos = cursor.fetchall()
+
+        cursor.execute("""
+            SELECT id_categoria, nombre_categoria
+            FROM categorias
+            ORDER BY nombre_categoria
+        """)
+
+        categorias = cursor.fetchall()
+
+        total_filtrado = len(gastos)
+        cursor.execute("""
+            SELECT COUNT(*) AS total
+            FROM gastos
+            WHERE id_usuario = %s
+            AND activo = TRUE
         """, (1,))
 
-        gastos = cursor.fetchall()
+        total_general = cursor.fetchone()['total']
+
 
         return render_template(
             'gastos.html',
-            gastos=gastos
+            gastos=gastos,
+            categorias=categorias,
+            categoria_seleccionada=categoria,
+            fecha_inicio=fecha_inicio,
+            fecha_fin=fecha_fin,
+            total_general=total_general
         )
 
     except Exception as e:
