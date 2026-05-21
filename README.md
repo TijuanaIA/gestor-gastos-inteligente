@@ -329,7 +329,8 @@ http://127.0.0.1:5000
 
 ## Autor
 
-**Oscar Espinosa Torres**
+**OscarDevMx**
 
-Desarrollador Backend en formación con enfoque en Python, análisis de datos y desarrollo de software.
+Desarrollador Backend en formación especializado en Python, SQL y desarrollo de aplicaciones web.
 
+🔗 https://github.com/OscarDevMx
